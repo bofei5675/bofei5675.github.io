@@ -27,4 +27,4 @@ of 0.36, and quadratic Kappa score of 0.88, which demonstrates
 a significant improvement over the published results.
 The attention maps were analyzed to provide insights on the
 decision process of the proposed model.
-![Model Architecture](https://github.com/bofei5675/bofei5675.github.io/tree/master/files/model.png)
+![Model Architecture](/images/model.png)
