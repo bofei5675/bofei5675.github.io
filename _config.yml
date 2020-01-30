@@ -116,6 +116,13 @@ author:
   youtube          :
   wikipedia        :
 
+author:
+  name             : "Bofei"
+  avatar           : "profile.png"
+  bio              : "Change _config.yml file for bio"
+  location         : "New York City"
+  employer         :
+
 
 # Reading Files
 include:
