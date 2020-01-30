@@ -2,7 +2,7 @@
 title: "Attention-based CNN for KL Grade Classification: Data from the Osteoarthritis Initiative"
 collection: projects
 type: "Project"
-permalink: /projects/project-1
+permalink: /projects/attn-cnn-paper
 venue: "Langone and CDS"
 date: 2012 - 2016
 location: "A location"
