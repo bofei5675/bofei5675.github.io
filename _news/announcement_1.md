@@ -5,4 +5,5 @@ inline: true
 related_posts: false
 ---
 
-A simple inline announcement.
+Introducing 🔥FIRE: A Dataset for Feedback Integration and Refinement Evaluation of Multimodal Models.
+Checkout on [X](https://twitter.com/Sealiqing/status/1819280783821230324)
