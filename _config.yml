@@ -6,6 +6,7 @@ title: Bofei's Site # the website title (if blank, full name will be used instea
 first_name: Bofei
 middle_name: 
 last_name: Zhang
+chinese_name: 张博飞
 email: zhangbofei5675@outlook.com
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Bofei's personal site for his experiences and stories
