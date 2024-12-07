@@ -10,9 +10,7 @@ profile:
   email: >
     <p><b>Email</b>: zhangbofei5675<code>[at]</code>outlook<code>[dot]</code>com</p>
   image_circular: false # crops the image to make it circular
-  more_info: >
-    Live by A.B.C.
-    From The Secret Life of Walter Mitty
+  more_info: 
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
