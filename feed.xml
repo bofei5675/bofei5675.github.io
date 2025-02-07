@@ -1,1 +1,203 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://bofei5675.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://bofei5675.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2025-02-07T13:14:50+00:00</updated><id>https://bofei5675.github.io/feed.xml</id><title type="html">Bofei Zhang (张博飞)</title><subtitle>Bofei&apos;s personal site for his experiences and stories </subtitle><entry><title type="html">Introducing a strong VLM FIRE with a powerful feedback-refinement capability.</title><link href="https://bofei5675.github.io/blog/2024/tabs/" rel="alternate" type="text/html" title="Introducing a strong VLM FIRE with a powerful feedback-refinement capability."/><published>2024-08-12T00:32:13+00:00</published><updated>2024-08-12T00:32:13+00:00</updated><id>https://bofei5675.github.io/blog/2024/tabs</id><content type="html" xml:base="https://bofei5675.github.io/blog/2024/tabs/"><![CDATA[<p>This a second posts.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Can VLMs refine their responses based on user feedback spontaneously❓]]></summary></entry><entry><title type="html">Introducing a strong VLM FIRE with a powerful feedback-refinement capability.</title><link href="https://bofei5675.github.io/blog/2024/tabs/" rel="alternate" type="text/html" title="Introducing a strong VLM FIRE with a powerful feedback-refinement capability."/><published>2024-08-10T00:32:13+00:00</published><updated>2024-08-10T00:32:13+00:00</updated><id>https://bofei5675.github.io/blog/2024/tabs</id><content type="html" xml:base="https://bofei5675.github.io/blog/2024/tabs/"><![CDATA[<p>Can VLMs refine their responses based on user feedback spontaneously❓</p> <p>Introducing 🔥FIRE: A Dataset for Feedback Integration and Refinement Evaluation of Multimodal Models.</p> <ul> <li>👉 Project: https://mm-fire.github.io Feel free to leave a message to me, if you have issues about the code.</li> </ul>]]></content><author><name></name></author><category term="VLM"/><category term="VLM"/><summary type="html"><![CDATA[Can VLMs refine their responses based on user feedback spontaneously❓]]></summary></entry></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://bofei5675.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://bofei5675.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2025-02-07T13:29:37+00:00</updated><id>https://bofei5675.github.io/feed.xml</id><title type="html">Bofei Zhang (张博飞)</title><subtitle>Bofei&apos;s personal site for his experiences and stories </subtitle><entry><title type="html">Introducing a strong VLM FIRE with a powerful feedback-refinement capability.</title><link href="https://bofei5675.github.io/blog/2024/tabs/" rel="alternate" type="text/html" title="Introducing a strong VLM FIRE with a powerful feedback-refinement capability."/><published>2024-08-12T00:32:13+00:00</published><updated>2024-08-12T00:32:13+00:00</updated><id>https://bofei5675.github.io/blog/2024/tabs</id><content type="html" xml:base="https://bofei5675.github.io/blog/2024/tabs/"><![CDATA[<h1 id="background">Background</h1> <p>In our research work, Multi-modal Agent Tuning (MAT), we have developed a framework for auto-generating multi-modal tool-usage trajectories (20K MM-Traj), boosting MiniCPM &amp; Qwen-VL tool use by 20%. This work is accepted by <strong>ICLR 2025</strong>.</p> <p>At the moment we did this work, LLaMA-Factory has not supported the training of Qwen-VL and MiniCPM. Therefore, we need to modify the code from officials of Qwen-VL and MiniCPM team. In our <a href="https://github.com/mat-agent/MAT-Agent">code</a>, you can find training these two models required two separated codebase, which is not very convenient.</p> <p>In this tutorial, I will show you how to use latest LLaMA-Factory to train MAT projects, such that you only need to download dataset then use one single codebase to train MAT.</p> <h1 id="tutorial">Tutorial</h1> <h2 id="step-1-install-llama-factory">Step 1: Install LLaMA-Factory</h2> <p>This is very simple, just follow the official <a href="https://github.com/hiyouga/LLaMA-Factory/tree/main/examples/train_lora">instruction</a>.</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create <span class="nt">-n</span> mat <span class="nv">python</span><span class="o">=</span>3.10
+conda activate mat
+git clone <span class="nt">--depth</span> 1 https://github.com/hiyouga/LLaMA-Factory.git
+<span class="nb">cd </span>LLaMA-Factory
+pip <span class="nb">install</span> <span class="nt">-e</span> <span class="s2">".[torch,metrics]"</span>
+</code></pre></div></div> <h2 id="step-2-download-and-parse-dataset">Step 2: Download and parse dataset</h2> <p>You can download the dataset from <a href="https://huggingface.co/datasets/PengxiangLi/MAT?row=0">HF</a> with <code class="language-plaintext highlighter-rouge">huggingface-cli</code>.</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># assume you are in the root directory of LLaMA-Factory</span>
+<span class="nb">mkdir </span>data/mat
+huggingface-cli download PengxiangLi/MAT <span class="nt">--local-dir</span> data/mat
+</code></pre></div></div> <p>You need to unzip <code class="language-plaintext highlighter-rouge">files.zip</code> in <code class="language-plaintext highlighter-rouge">data/mat</code> to get the images. The dataset format we released is different to what LLaMA-Factory supported, and I wrote a simple script to do the conversion.</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">json</span>
+<span class="kn">import</span> <span class="n">os</span>
+<span class="kn">from</span> <span class="n">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="sh">"</span><span class="s">data/mat/mat_train.json</span><span class="sh">"</span>
+
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">processed_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="sh">"</span><span class="s">image</span><span class="sh">"</span><span class="p">]</span>
+    <span class="n">conversation</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="sh">"</span><span class="s">conversations</span><span class="sh">"</span><span class="p">]</span>
+    <span class="n">conversation_processed</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">system_prompt</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">conv_id</span><span class="p">,</span> <span class="n">conv</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">conversation</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">conv</span><span class="p">[</span><span class="sh">"</span><span class="s">role</span><span class="sh">"</span><span class="p">]</span> <span class="o">==</span> <span class="sh">"</span><span class="s">user</span><span class="sh">"</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">conv</span><span class="p">[</span><span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="nf">loads</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">.</span><span class="nf">keys</span><span class="p">():</span>
+                    <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="sh">"</span><span class="s">&lt;image&gt;</span><span class="sh">"</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+                
+            <span class="n">conversation_processed</span><span class="p">.</span><span class="nf">append</span><span class="p">({</span><span class="sh">"</span><span class="s">role</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">user</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">:</span> <span class="n">content</span><span class="p">})</span>
+        <span class="k">elif</span> <span class="n">conv</span><span class="p">[</span><span class="sh">"</span><span class="s">role</span><span class="sh">"</span><span class="p">]</span> <span class="o">==</span> <span class="sh">"</span><span class="s">system</span><span class="sh">"</span><span class="p">:</span>
+            <span class="n">system_prompt</span> <span class="o">=</span> <span class="n">conv</span><span class="p">[</span><span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">conversation_processed</span><span class="p">.</span><span class="nf">append</span><span class="p">({</span><span class="sh">"</span><span class="s">role</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">assistant</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">:</span> <span class="n">conv</span><span class="p">[</span><span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">]})</span>
+            
+    <span class="k">if</span> <span class="nf">type</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span> <span class="ow">and</span> <span class="nf">len</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">elif</span> <span class="nf">type</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span> <span class="ow">and</span> <span class="nf">len</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">images</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="nf">loads</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+            <span class="n">images_processed</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">images</span><span class="p">)):</span>
+                <span class="n">images_processed</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="sa">f</span><span class="sh">"</span><span class="s">&lt;image_0</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">&gt;</span><span class="sh">"</span><span class="p">])</span>
+            <span class="n">images</span> <span class="o">=</span> <span class="n">images_processed</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="n">images</span><span class="p">]</span>
+            
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nc">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Invalid images type: </span><span class="si">{</span><span class="nf">type</span><span class="p">(</span><span class="n">images</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">images</span><span class="p">)):</span>
+        <span class="n">raw</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+        <span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="s">data/mat/tongagent/</span><span class="si">{</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">replace</span><span class="p">(</span><span class="sh">'</span><span class="s">data/open_llava_next/</span><span class="sh">'</span><span class="p">,</span> <span class="sh">''</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span>
+        <span class="k">assert</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">exists</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="sa">f</span><span class="sh">"</span><span class="s">Image </span><span class="si">{</span><span class="n">raw</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="nf">type</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span><span class="si">}</span><span class="s"> does not exist</span><span class="sh">"</span>
+    <span class="n">processed_item</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">messages</span><span class="sh">"</span><span class="p">:</span> <span class="n">conversation_processed</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">images</span><span class="sh">"</span><span class="p">:</span> <span class="n">images</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">system</span><span class="sh">"</span><span class="p">:</span> <span class="n">system_prompt</span>
+    <span class="p">}</span>
+
+    <span class="n">processed_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">processed_item</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">data/mat_train_processed.json</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">w</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="p">.</span><span class="nf">dump</span><span class="p">(</span><span class="n">processed_data</span><span class="p">[:</span><span class="mi">500</span><span class="p">],</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div></div> <p><strong>Note</strong>: In this script, I did some conversion to make sure the image path is correct and replace the image placeholder. You should check the image path since you might download them somewhere else.</p> <p>This will give you a similar structure like <code class="language-plaintext highlighter-rouge">data/mllm_demo.json</code>. You will have something like this:</p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"messages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;image&gt;Who are they?"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"They're Kane and Gretzka from Bayern Munich."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assistant"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What are they doing?"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"They are celebrating on the soccer field."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assistant"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"images"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"mllm_demo_data/1.jpg"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div> <h2 id="step-3-configure-the-llama-factory">Step 3: Configure the LLaMA-Factory</h2> <p>Now, you have the dataset ready, and you need to change LLaMA-Factory’s dataset configuration. In <code class="language-plaintext highlighter-rouge">data/dataset_info.json</code>, simply add</p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">...</span><span class="w">
+  </span><span class="nl">"mat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"file_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mat_train_processed.json"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"formatting"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sharegpt"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"columns"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"messages"</span><span class="p">:</span><span class="w"> </span><span class="s2">"messages"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"images"</span><span class="p">:</span><span class="w"> </span><span class="s2">"images"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"system"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"role_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"role"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"content_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"content"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"user_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"assistant_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assistant"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+</span></code></pre></div></div> <p>Write the following yaml file as training config. This is for MiniCPM-V-2_6.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### model
+model_name_or_path: openbmb/MiniCPM-V-2_6
+image_resolution: 262144
+video_resolution: 16384
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 8
+lora_target: all
+
+### dataset
+dataset: mat  # video: mllm_video_demo
+template: minicpm_v
+cutoff_len: 10240
+max_samples: 1000
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: saves/minicpm_v-2_6/lora/sft
+logging_steps: 10
+save_steps: 500
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
+learning_rate: 1.0e-4
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+
+### eval
+# val_size: 0.1
+# per_device_eval_batch_size: 1
+# eval_strategy: steps
+# eval_steps: 500
+
+</code></pre></div></div> <p>This is for Qwen2-VL</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### model
+model_name_or_path: Qwen/Qwen2-VL-7B-Instruct
+image_resolution: 262144
+video_resolution: 16384
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 8
+lora_target: all
+
+### dataset
+dataset: mat  # video: mllm_video_demo
+template: qwen2_vl
+cutoff_len: 10240
+max_samples: 1000
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: saves/qwen2_vl-7b/lora/sft
+logging_steps: 10
+save_steps: 500
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
+learning_rate: 1.0e-4
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+
+### eval
+# val_size: 0.1
+# per_device_eval_batch_size: 1
+# eval_strategy: steps
+# eval_steps: 500
+
+</code></pre></div></div> <h2 id="step-4-train-mat">Step 4: Train MAT</h2> <p>Training is straightforward, just run</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>llamafactory-cli train examples/train_lora/qwen2vl_lora_sft_mat.yaml
+<span class="c"># or</span>
+llamafactory-cli train examples/train_lora/minicpm_v_lora_sft_mat.yaml
+</code></pre></div></div> <p>Happy to answer any questions and please feel free to ask.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Can VLMs refine their responses based on user feedback spontaneously❓]]></summary></entry></feed>
