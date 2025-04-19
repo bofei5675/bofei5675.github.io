@@ -21,7 +21,7 @@ social: true # includes social icons at the bottom of the page
 
 ## Career
 - 2023/3-Current; Research Engineer @ [Beijing Institute for General Artificial Intelligence (BIGAI)](https://www.bigai.ai)
-  - Multimodality & Agent & Machine Learning
+  - Currently working on Vision Language Model & Agentic Task Post-Training.
 - 2020/6-2023/3; Software Engineer @ ByteDance
   - Tiktok & Lark
 
