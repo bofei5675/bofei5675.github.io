@@ -4,7 +4,7 @@
 
 title: Bofei Zhang (张博飞) # the website title (if blank, full name will be used instead)
 first_name: Bofei
-middle_name: 
+middle_name:
 last_name: Zhang
 chinese_name: 张博飞
 email: zhangbofei5675@outlook.com
@@ -312,8 +312,8 @@ display_categories: ["external-services"] # these categories will be displayed o
 # -----------------------------------------------------------------------------
 
 scholar:
-  last_name: [Einstein]
-  first_name: [Albert, A.]
+  last_name: [Zhang]
+  first_name: [Bofei]
 
   style: apa
   locale: en
