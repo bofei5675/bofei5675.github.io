@@ -18,7 +18,12 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2.2"
-          bundler-cache: true
+          bundler: '2.4.22'
+          cache-version: 0
+      - name: Add platform
+        run: bundle lock --add-platform x86_64-linux
+      - name: Install dependencies
+        run: bundle install
       - name: Update _config.yml ⚙️
         uses: fjogeleit/yaml-update-action@main
         with:
