@@ -67,6 +67,8 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
+      - name: Add platform
+        run: bundle lock --add-platform x86_64-linux
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -74,8 +76,6 @@ jobs:
           bundler-cache: true
           bundler: '2.4.22'
           cache-version: 0
-      - name: Add platform
-        run: bundle lock --add-platform x86_64-linux
       - name: Update _config.yml ⚙️
         uses: fjogeleit/yaml-update-action@main
         with:
