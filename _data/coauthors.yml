@@ -1,34 +1,140 @@
-"adams":
-  - firstname: ["Edwin", "E.", "E. P.", "Edwin Plimpton"]
-    url: https://en.wikipedia.org/wiki/Edwin_Plimpton_Adams
+"brown":
+  - firstname: ["Matthew"]
+    url: https://mattabrown.github.io/
 
-"podolsky":
-  - firstname: ["Boris", "B.", "B. Y.", "Boris Yakovlevich"]
-    url: https://en.wikipedia.org/wiki/Boris_Podolsky
+"cai":
+  - firstname: ["Jianfei"]
+    url: https://jianfei-cai.github.io/
 
-"rosen":
-  - firstname: ["Nathan", "N."]
-    url: https://en.wikipedia.org/wiki/Nathan_Rosen
+"cui":
+  - firstname: ["Yin"]
+    url: https://ycui.me/
 
-"bach":
-  - firstname: ["Johann Sebastian", "J. S."]
-    url: https://en.wikipedia.org/wiki/Johann_Sebastian_Bach
+"chen":
+  - firstname: ["Yixin"]
+    url: https://yixchen.github.io/
 
-  - firstname: ["Carl Philipp Emanuel", "C. P. E."]
-    url: https://en.wikipedia.org/wiki/Carl_Philipp_Emanuel_Bach
+"du":
+  - firstname: ["Yuntao"]
+    url: https://yuntaodu.github.io/
 
-"przibram":
-  - firstname: ["Karl"]
-    url: https://link.springer.com/article/10.1007/s00016-019-00242-z
+"fang":
+  - firstname: ["Cong"]
+    url: https://congfang-ml.github.io/
 
-"schrodinger":
-  - firstname: ["Erwin"]
-    url: https://en.wikipedia.org/wiki/Erwin_Schr%C3%B6dinger
+"fu":
+  - firstname: ["Jianlong"]
+    url: https://jianlong-fu.github.io/
 
-"lorentz":
-  - firstname: ["Hendrik Antoon"]
-    url: https://en.wikipedia.org/wiki/Hendrik_Lorentz
+"gao":
+  - firstname: ["Feng"]
+    url: https://fen9.github.io/
+  - firstname: ["Zhi"]
+    url: https://zhigao2017.github.io/
 
-"planck":
-  - firstname: ["Max"]
-    url: https://en.wikipedia.org/wiki/Max_Planck
+"gong":
+  - firstname: ["Ran"]
+    url: https://nikepupu.github.io/
+  - firstname: ["Boqing"]
+    url: http://boqinggong.info/
+
+"gurari":
+  - firstname: ["Danna"]
+    url: https://dannagurari.colorado.edu/
+
+"han":
+  - firstname: ["Wenjuan"]
+    url: https://scholar.google.com/citations?user=rfVLLfAAAAAJ&hl=en
+
+"hong":
+  - firstname: ["Yining"]
+    url: https://evelinehong.github.io/
+
+"huang":
+  - firstname: ["Jiangyong"]
+    url: https://huangjy-pku.github.io/
+  - firstname: ["Siyuan"]
+    url: https://siyuanhuang.com/
+
+"jia":
+  - firstname: ["Baoxiong"]
+    url: https://buzz-beater.github.io/
+
+"li":
+  - firstname: ["Puhao"]
+    url: https://xiaoyao-li.github.io/
+  - firstname: ["Pengxiang"]
+    url: https://pengxiang-li.github.io/
+
+"liang":
+  - firstname: ["Yitao"]
+    url: https://web.cs.ucla.edu/~yliang/
+
+"liu":
+  - firstname: ["Huaping"]
+    url: https://sites.google.com/site/thuliuhuaping/home
+  - firstname: ["Tengyu"]
+    url: https://tengyu.ai/
+
+"luo":
+  - firstname: ["Jiebo"]
+    url: http://www.cs.rochester.edu/u/jluo/
+  - firstname: ["Lirui"]
+    url: https://liruiluo.github.io/
+
+"ma":
+  - firstname: ["Xiaojian"]
+    url: https://jeasinema.github.io/
+
+"mei":
+  - firstname: ["Tao"]
+    url: https://taomei.me/
+
+"qiu":
+  - firstname: ["Zhaofan"]
+    url: http://zhaofanqiu.deepfun.club/
+
+"wang":
+  - firstname: ["Yizhou"]
+    url: https://cfcs.pku.edu.cn/english/people/faculty/yizhouwang/index.htm
+
+"wu":
+  - firstname: ["Rujie"]
+    url: https://joyjayng.github.io/
+
+  - firstname: ["Ying Nian"]
+    url: http://www.stat.ucla.edu/~ywu/
+
+"xie":
+  - firstname: ["Sirui"]
+    url: https://siruixie.com/
+
+"yao":
+  - firstname: ["Ting"]
+    url: http://tingyao.deepfun.club/
+
+"yang":
+  - firstname: ["Ming-Hsuan"]
+    url: http://faculty.ucmerced.edu/mhyang/
+  - firstname: ["Yaodong"]
+    url: https://www.yangyaodong.com/
+
+"yong":
+  - firstname: ["Silong"]
+    url: https://silongyong.github.io/
+
+"zhang":
+  - firstname: ["Guoxi"]
+    url: https://guoxizhang.com/
+
+"zheng":
+  - firstname: ["Zilong"]
+    url: https://zilongzheng.github.io/
+
+"zhu":
+  - firstname: ["Song-Chun"]
+    url: http://www.stat.ucla.edu/~sczhu/
+  - firstname: ["Yixin"]
+    url: https://yzhu.io/
+  - firstname: ["Ziyu"]
+    url: https://zhuziyu-edward.github.io/
