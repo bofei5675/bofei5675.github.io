@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: <a href='#'>Beijing Institute for General Artificial Intelligence (BIGAI)</a>
+subtitle: <a href='#'>Tiktok AIIC(AI创新中心)</a>
 
 profile:
   align: right
@@ -20,9 +20,10 @@ social: true # includes social icons at the bottom of the page
 # Experience
 
 ## Career
-
-- 2023/3-Current; Research Engineer @ [Beijing Institute for General Artificial Intelligence (BIGAI)](https://www.bigai.ai)
-  - Currently working on Vision Language Model & Agentic Task Post-Training.
+- 2025/7-Current; Researcher @ Tiktok AIIC(AI创新中心)
+  - Working on SFT & RL for GUI Agent
+- 2023/3-2025/7; Research Engineer @ [Beijing Institute for General Artificial Intelligence (BIGAI)](https://www.bigai.ai)
+  - Worked on Vision Language Model & Agentic Task Post-Training.
 - 2020/6-2023/3; Software Engineer @ ByteDance
   - Tiktok & Lark
 

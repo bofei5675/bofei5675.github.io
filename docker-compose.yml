@@ -11,3 +11,8 @@ services:
       - .:/srv/jekyll
     environment:
       - JEKYLL_ENV=development
+    networks:
+      - al-folio-net
+
+networks:
+  al-folio-net:
