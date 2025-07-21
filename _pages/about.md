@@ -20,6 +20,7 @@ social: true # includes social icons at the bottom of the page
 # Experience
 
 ## Career
+
 - 2025/7-Current; Researcher @ Tiktok AIIC(AI创新中心)
   - Working on SFT & RL for GUI Agent
 - 2023/3-2025/7; Research Engineer @ [Beijing Institute for General Artificial Intelligence (BIGAI)](https://www.bigai.ai)
