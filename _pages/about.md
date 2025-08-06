@@ -32,3 +32,13 @@ social: true # includes social icons at the bottom of the page
 
 - 2018/9-2020/6; Master in Data Science @ New York University
 - 2013/8-2018/5; Bachelor in Biomedical Engineering @ The Ohio State University
+
+---
+
+## 🚀 Looking for Opportunities?
+
+**I can refer you to ByteDance/TikTok!** We're actively hiring talented individuals across various teams including AI/ML, Software Engineering, Data Science, and Research. 
+
+**[Read my detailed referral post here →](/blog/2025/bytedance-referral/)**
+
+Whether you're an experienced professional or a recent graduate, feel free to reach out for referral opportunities!
