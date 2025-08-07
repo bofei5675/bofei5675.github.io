@@ -35,10 +35,6 @@ social: true # includes social icons at the bottom of the page
 
 ---
 
-## 🚀 Looking for Opportunities?
+## 🚀 ByteDance Referral Available
 
-**I can refer you to ByteDance/TikTok!** We're actively hiring talented individuals across various teams including AI/ML, Software Engineering, Data Science, and Research. 
-
-**[Read my detailed referral post here →](/blog/2025/bytedance-referral/)**
-
-Whether you're an experienced professional or a recent graduate, feel free to reach out for referral opportunities!
+I can refer you to ByteDance! **[Details here →](/blog/2025/bytedance-referral/)**
