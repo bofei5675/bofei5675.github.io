@@ -32,3 +32,9 @@ social: true # includes social icons at the bottom of the page
 
 - 2018/9-2020/6; Master in Data Science @ New York University
 - 2013/8-2018/5; Bachelor in Biomedical Engineering @ The Ohio State University
+
+---
+
+## 🚀 Referral(内推） Available
+
+**[Details here →](/blog/2025/bytedance-referral/)**
