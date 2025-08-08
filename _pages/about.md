@@ -35,6 +35,6 @@ social: true # includes social icons at the bottom of the page
 
 ---
 
-## 🚀 ByteDance Referral Available
+## 🚀 Referral(内推） Available
 
-I can refer you to ByteDance! **[Details here →](/blog/2025/bytedance-referral/)**
+**[Details here →](/blog/2025/bytedance-referral/)**
