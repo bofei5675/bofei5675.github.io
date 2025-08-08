@@ -10,9 +10,11 @@ categories: career
 # ByteDance Referral
 
 ## Update
-* 2025-8: 2026 Campus Hirting start!
+
+- 2025-8: 2026 Campus Hirting start!
 
 ## Referral Link & Code
+
 **Experienced Hire**: [Apply here](https://job.toutiao.com/s/uOimuUHk-AU)
 
 **Campus Recruitment**: [Apply here](https://job.toutiao.com/s/inZ0Q50wF3c)  
