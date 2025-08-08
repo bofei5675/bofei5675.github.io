@@ -7,8 +7,6 @@ tags: referral
 categories: career
 ---
 
-# ByteDance Referral
-
 ## Update
 
 - 2025-8: 2026 Campus Hiring start!
