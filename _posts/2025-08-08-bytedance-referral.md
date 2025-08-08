@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ByteDance Referral
-date: 2025-08-08 10:00:00
+date: 2025-08-08 00:00:00
 description: ByteDance referral links
 tags: referral
 categories: career
@@ -11,7 +11,7 @@ categories: career
 
 ## Update
 
-- 2025-8: 2026 Campus Hirting start!
+- 2025-8: 2026 Campus Hiring start!
 
 ## Referral Link & Code
 
@@ -20,7 +20,7 @@ categories: career
 **Campus Recruitment**: [Apply here](https://job.toutiao.com/s/inZ0Q50wF3c)  
 **Referral Code**: `8CBMWHQ`
 
-Submit your rusume via above referral link!
+Submit your resume via above referral link!
 
 Contact: zhangbofei5675[at]outlook[dot]com
 
