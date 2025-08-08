@@ -16,6 +16,7 @@ footer_text: >
   Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
 keywords: Bofei, Large Language Model, Large Multi-Modal Model, Agent # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
+timezone: Asia/Shanghai
 icon: bofei.jpg # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
 url: https://bofei5675.github.io # the base hostname & protocol for your site
