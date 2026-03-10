@@ -97,6 +97,10 @@ ScreenSeekeR 是一个 **agentic visual search framework**，核心是：
 
 这一步很关键：planner 输出的是**语言锚点**，grounder 把它们都投影为**空间锚点**。
 
+补充一个容易误解的点：在这个实现里，ScreenSeekeR 期望 grounder 返回的是 **bbox**。  
+以默认的 OS-Atlas 接入为例，prompt 明确要求 `(with bbox)`，解析逻辑也优先读 `<|box_start|>...<|box_end|>`。  
+若某些模型只返回 point，工程上常见做法是转成退化框 `[x, y, x, y]` 或在点周围扩张成小框（同仓库 `ReGroundMethod` 里就有 point->fake bbox 的处理）。
+
 ---
 
 ### 4.4 候选框后处理：自动扩张 + 长宽比治理
@@ -115,11 +119,14 @@ ScreenSeekeR 是一个 **agentic visual search framework**，核心是：
 
 `score_patch()` 与论文一致，核心逻辑：
 
-- 用每个投票框中心点去评估候选 patch；
+- 用每个**投票框（voting box）中心点**去评估候选 patch；
 - 点在 patch 外得分为 0；
 - 点在 patch 内时按到 patch 中心 \((0.5,0.5)\) 的距离做高斯衰减。
 
 `score_patches()` 对所有投票框求和，得到每个 patch 的总分，再用于排序。
+
+这里“点”的来源是 `groundings` 中每个 bbox 的中心：\(\big((x_1+x_2)/2,\ (y_1+y_2)/2\big)\)。  
+所以“点在框里/框外”指的是“该投票中心点是否落在当前候选 patch 内”。
 
 直觉上，这会优先选择“多条线索共同支持，且支持点分布集中”的区域。
 
@@ -134,6 +141,10 @@ ScreenSeekeR 是一个 **agentic visual search framework**，核心是：
 3. 按保留顺序逐个进入子图递归搜索。
 
 这保证了“先搜最可能区域”，并避免重复搜索高度重叠区域。
+
+注意它不是“只进 top-1 就结束”：  
+代码会先进入最高分 patch；如果该分支没找到目标，会回溯并继续尝试后续 patch。  
+并且每进入一层子图，都会重新执行一轮完整流程（planner 产出 element/area/neighbor -> grounder 定位 -> 评分排序 -> 递归）。
 
 ---
 
