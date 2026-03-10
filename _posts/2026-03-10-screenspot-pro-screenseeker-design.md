@@ -195,6 +195,47 @@ ScreenSeekeR 是一个 **agentic visual search framework**，核心是：
 
 它实际上是在模拟人类“找控件”的过程：先定位窗口/工具栏，再看邻近元素，再细化到按钮级别。
 
+### 6.1 简图（流程）
+
+```mermaid
+flowchart TD
+    A[输入: instruction + 全屏截图] --> B{达到停止条件?}
+    B -- 否 --> C[Planner: 生成 element/area/neighbor]
+    C --> D[Grounder: 将线索定位为多个 bbox]
+    D --> E[候选框后处理: 膨胀/拆分 + 打分 + NMS + 排序]
+    E --> F[进入最高分 patch 递归搜索]
+    F --> G{该分支找到目标?}
+    G -- 是 --> H[返回目标 bbox]
+    G -- 否 --> I[尝试下一个 patch]
+    I --> J{还有 patch?}
+    J -- 是 --> F
+    J -- 否 --> K[本层返回未找到]
+    B -- 是 --> L[直接 grounding + 结果核验]
+    L --> M{是目标?}
+    M -- 是 --> H
+    M -- 否 --> K
+```
+
+### 6.2 什么时候会停止？最终输出什么？
+
+源码里的停止逻辑可以分成三类：
+
+1. **命中停止（成功）**  
+   任一递归分支返回 `terminate_flag=True`，整棵搜索立即停止并向上返回最终 `bbox`。
+
+2. **边界停止（到叶子再判）**  
+   在 `visual_search()` 中，若满足以下任一条件就不再继续下钻：  
+   - `depth >= max_search_depth`（默认 3）  
+   - 当前图像尺寸小于最小 crop 要求（默认约 `1280x768`）  
+   然后进入 `try_ground_in_patch()` 做“直接 grounding + planner 核验”。
+
+3. **失败停止（全分支耗尽）**  
+   当前层所有候选 patch 都尝试完仍未找到，返回 `False, None`。
+
+最终在 `ground_only_positive()` 的对外返回中：
+- 找到时：`result=positive`，并返回 `bbox`，`point` 为该 bbox 中心点；  
+- 未找到时：`result=negative`，`bbox=None`，`point=None`。
+
 ---
 
 ## 7. 复现与工程使用建议
