@@ -28,7 +28,7 @@ social: true # includes social icons at the bottom of the page
 - 2020/6-2023/3; Software Engineer @ ByteDance
   - Tiktok & Lark
 
-<small>🚀 Referral(内推） Available — <a href="/blog/2025/bytedance-referral/">Details here →</a></small>
+<small>🚀 Job Referral（职位内推）Available — <a href="/blog/2025/bytedance-referral/">Details here →</a></small>
 
 <small>如果你需要工业级基准数据集，请联系 <a href="https://gadeunion.com/" target="_blank" rel="noopener noreferrer">GADE Union</a>。</small>
 
